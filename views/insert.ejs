@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insertar productos</title>
+</head>
+<body>
+    <form action="/insert-product" method="POST">
+        <label for="name">Nombre de productos</label>
+        <input type="text" name="name" value="" placeholder="Nombre del producto" required>
+        <label for="code">codigo</label>
+        <input type="text" name="code" value="" placeholder="codigo del producto" required>
+        <label for="price">precio</label>
+        <input type="text" name="price" value="" placeholder="precio del producto" required>
+        <label for="description">descripcion</label>
+        <textarea name="description" value="" placeholder="descripcion del producto" required></textarea>
+        <label for="color">color</label>
+        <input type="text" name="color" value="" placeholder="color del producto" required>
+        <label for="guy">tipo</label>
+        <input type="text" name="guy" value="" placeholder="tipo de producto" required>
+        <label for="category_id">Categoria</label>
+        <select name="category_id" required>
+            <option value="1">Exteriores</option>
+            <option value="2">Interiores</option>
+            <option value="3">Alta resolucion</option>
+            <option value="4">Inalambricas</option>
+            </select>
+            <input type="submit" value="Insertar">
+    </form>
+</body>
+</html>

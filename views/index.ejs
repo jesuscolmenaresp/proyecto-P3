@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Interfaz Administrativa</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+</head>
+<body>
+  <h1>Listado de Productos</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Código</th>
+        <th>Precio</th>
+        <th>Descripción</th>
+        <th>color</th>
+        <th>tipo</th>
+        <th>Categoría</th>
+        <th>Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% products.forEach(product => { %>
+      <tr>
+        <td><%= product.id %></td>
+        <td><%= product.name %></td>
+        <td><%= product.code %></td>
+        <td><%= product.price %></td>
+        <td><%= product.description %></td>
+        <td><%= product.color %></td>
+        <td><%= product.guy %></td>
+        <td><% if(product.category_id == 1) { %>
+        Exteriores
+        <%  } else if(product.category_id == 2) { %>
+        Interiores
+        <%  } else if(product.category_id == 3) { %>
+        Alta resolucion
+        <%  } else if(product.category_id == 4) { %>
+        Inalambricas
+        <%  } else if(product.category_id == 5) { %>
+          <% } %></td>
+          <td><a href="/edit/<%= product.id %>">Editar</a>
+          <a href="/delete/<%= product.id %>">Eliminar</a></td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <a href="/insert">Insertar producto</a>
+</body>
+</html>
+

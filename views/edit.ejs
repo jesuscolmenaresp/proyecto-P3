@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar productos</title>
+</head>
+<body>
+    <form action="/edit/" method="post">
+        <input type="hidden" value="<%= product.id %>" name="id">
+        <label for="name">Nombre del producto</label>
+        <input type="text" name="name" value="<%= product.name %>"
+        placeholder="Nombre del producto"required>
+        <label for="code">codigo</label>
+        <input type="text" name="code" value="<%= product.code %>"
+        placeholder="codigo del producto"required>
+        <label for="price">precio</label>
+        <input type="text" name="price" value="<%= product.price %>"
+        placeholder="precio del producto"required>
+        <label for="description">descripcion</label>
+        <textarea name="description" placeholder="Descripcion del producto" required><%= product.description %></textarea>
+        <label for="color">color</label>
+        <input type="text" name="color" value="<%= product.color %>"
+        placeholder="color del producto"required>
+        <label for="guy">tipo</label>
+        <input type="text" name="guy" value="<%= product.guy %>"
+        placeholder="tipo del producto"required>
+        <label for="category_id">Categoria</label>
+        <select name="category_id" required>
+            <option value="1">Exteriores</option>
+            <option value="2">Interiores</option>
+            <option value="3">Alta resolucion</option>
+            <option value="4">Inalambricas</option>
+            </select>
+            <input type="submit" value="Editar">
+    </form>
+</body>
+</html>
