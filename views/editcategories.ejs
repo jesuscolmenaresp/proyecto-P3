@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar categorias</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/styleedit.css">
+</head>
+<body>
+    <form action="/editcategories/" method="post">
+        <input type="hidden" value="<%= categorie.id %>" name="id">
+        <label for="name">Nombre de la categoria</label>
+        <input type="text" name="name" value="<%= categorie.name %>"
+        placeholder="Nombre de la categoria"required>
+        <input type="submit" value="Editar">
+    </form>
+</body>
+</html>

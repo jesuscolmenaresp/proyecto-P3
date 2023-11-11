@@ -1,0 +1,48 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-image: url(https://us.123rf.com/450wm/alicephoto/alicephoto1507/alicephoto150700513/42668333-c%C3%A1maras-de-seguridad-cctv-en-edificio-de-oficinas.jpg?ver=6);
+  background-position: center;
+
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+form {
+  background: white;
+  width: 300px;
+  border-radius: 6px;
+  padding: 20px 40px;
+  box-sizing: border-box;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form label, input {
+  display: block;
+  margin: 10px 0;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[type="submit"] {
+  background: #2ecc71;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background: #27ae60;
+}

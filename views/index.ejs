@@ -44,10 +44,31 @@
           <td><a href="/edit/<%= product.id %>">Editar</a>
           <a href="/delete/<%= product.id %>">Eliminar</a></td>
       </tr>
-      <% }) %>
+      <% }); %>
     </tbody>
   </table>
-  <a href="/insert">Insertar producto</a>
+  <a class="button" href="/insert">Insertar producto</a>
+
+  <h1>Listado de Categorías</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% categories.forEach(categorie => { %>
+        <tr>
+          <td><%= categorie.id %></td>
+          <td><%= categorie.name %></td>
+          <td><a href="/editcategories/<%= categorie.id %>">Editar</a>
+          <a href="/deletes/<%= categorie.id %>">Eliminar</a></td>
+        </tr>
+        <% }); %>
+    </tbody>
+  </table>
+  <a class="button" href="/insertcategories">Insertar categoria</a>
 </body>
 </html>
-

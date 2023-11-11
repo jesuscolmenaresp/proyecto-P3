@@ -1,8 +1,52 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', sans-serif; 
+  background-image:url(https://img.freepik.com/fotos-premium/camara-seguridad-colores-sobre-fondo-azul_881695-8930.jpg?size=626&ext=jpg&ga=GA1.1.1880011253.1699056000&semt=ais);
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  color: #333; 
 }
 
-a {
-  color: #00B7FF;
+h1 {
+  color: #333;
+}
+
+table {
+  border-collapse: collapse;
+  width: 80%;
+  margin: 20px auto;
+  background: rgb(186, 182, 255);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Roboto', sans-serif;
+  color: #333; 
+}
+
+table th,
+table td {
+  padding: 10px 15px;
+  text-align: left;
+  border: 1px solid rgb(10, 0, 0);
+}
+
+table th {
+  background: #f2f2f2;
+}
+
+table td {
+  border-top: 1px solid #e6e6e6;
+}
+
+a.button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px 0;
+  background: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-family: 'Roboto', sans-serif; 
+}
+
+a.button:hover {
+  background: #0056b3;
 }

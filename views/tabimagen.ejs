@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insertar imagen</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+</head>
+<body>
+    <table>
+        <thead>
+      <tr>
+        <th>ID</th>
+        <th>Url</th>
+        <th>Producto ID</th>
+        <th>destacado</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% image.forEach(image => { %>
+          <tr>
+           <td><%= image.id %></td>
+            <td><%= image.producto_id%></td>
+            <td><%= image.destacado %></td>
+            <td><a href="/editima/<%=image.id%>">Editar</a>
+              <a href="/deleteima/<%=image.id%>">Eliminar</a></td>
+            </tr>
+          <% }); %>
+    </tbody>
+    </table>
+<a href="/img" class="btn btn-dark">Insertar Imagen</a>
+</body>
+</html>
