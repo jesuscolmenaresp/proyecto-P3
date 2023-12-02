@@ -7,16 +7,58 @@ require('dotenv').config();
 let login = false;
 
 router.get('/', (req, res) => {
+  const { product_name, description, category_name, color, guy } = req.query;
+  db.consultable(product_name, description, category_name, color, guy)
+    .then(products => {
+      res.render('listaproduct', { products: products });
+    })
+    .catch(err => {
+      console.error(err);
+      res.render('listaproduct', { products: [] });
+    });
+});
+
+router.get('/filters', (req, res) => {
+res.render('filters')
+});
+
+router.get('/detalles/:id', (req, res) => {
+  const productId = req.params.id;
+  db.getDetalles(productId)
+    .then(products => {
+      if (products.length > 0) {
+        res.render('detalles', { products: products });
+      } else {
+        res.render('product_not_found');
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      res.render('error', { error: err.message });
+    });
+});
+router.post('/login', (req, res) =>{
+  const {user, pass} = req.body;
+  if(user == process.env.USER_ADMIN && pass == process.env.PASS_ADMIN){
+    login = true;
+    res.redirect('/login');
+  }else{
+    login = false;
+    res.redirect('/');
+  };
+  });
+
+router.get('/login', (req, res) => {
   if(!login){
     res.render('login');
   } else {
-    Promise.all([db.getProducts(), db.getCategories()]) 
+    Promise.all([db.getProducts(), db.getCategories()])  
       .then(([products, categories]) => {
-        res.render('index', { products: products, categories: categories });
+        res.render('index', { products: products, categories: categories});
       })
       .catch(err => {
         console.error(err);
-        res.render('index', { products: [], categories: [] }); 
+        res.render('index', { products: [], categories: []}); 
       });
   }
 });
@@ -141,17 +183,6 @@ router.get('/deletes/:id', (req, res) =>{
 });
 });
 
-router.post('/login', (req, res) =>{
-  const {user, pass} = req.body;
-  if(user == process.env.USER_ADMIN && pass == process.env.PASS_ADMIN){
-    login = true;
-    res.redirect('/');
-  }else{
-    login = false;
-    res.redirect('/');
-  }
-  })
-
 router.get('/tabimagen', (req, res) => {
   db.getimagen()
   .then(data => {        
@@ -164,13 +195,13 @@ router.get('/tabimagen', (req, res) => {
   });
   
 router.get('/img', (req, res) => {
-  res.render('img');
+  res.render('img')
 })
 
 router.post('/img', (req, res) => {
-  const {url, producto_id, destacado} = req.body;
-  console.log(url, producto_id, destacado);
-  db.insertProducts(url, producto_id, destacado)
+  const {url, destacado, product_id} = req.body;
+  console.log(url, destacado, product_id);
+  db.insertimagen(url, destacado, product_id)
   .then(() => {
     res.redirect('tabimagen')
     })
@@ -180,8 +211,8 @@ router.post('/img', (req, res) => {
   });
   
 router.post('/editima/', (req, res)=>{
-  const {id, url, producto_id, destacado} = req.body;
-  db.updateimagen(id, url, producto_id, destacado)
+  const {id, url, destacado, product_id} = req.body;
+  db.updateimagen(id, url, destacado, product_id)
   .then(() =>{
   res.redirect('/tabimagen');
   })

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalles del Producto</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/stylecuadricula.css">
+</head>
+</head>
+<body>
+  <a class="botonnn" onclick="location.href='/'">Volver</a>
+  <div class="product-details">
+    <div class="product">
+      <h2><%= products[0].product_name %></h2>
+      <p>Precio: <%= products[0].price %></p>
+      <p>Descripción: <%= products[0].description %></p>
+      <p>Categoría: <%= products[0].category_name %></p>
+      <p>Color: <%= products[0].color %></p>
+      <p>Tipo: <%= products[0].guy %></p>
+      <% if (products[0].image_url) { %>
+        <img alt="Product image" src="<%= products[0].image_url %>" width="200" height="150">
+      <% } else { %>
+        No hay imagen disponible
+      <% } %>
+    <a class="boton-carrito" onclick="agregarAlCarrito()">Agregar al Carrito</a>
+    </div>
+  </div>
+   <!-- Script para manejar la acción del botón de compras -->
+   <script>
+    function agregarAlCarrito() {
+      alert("Producto agregado al carrito");
+    }
+  </script>
+</body>
+</html>

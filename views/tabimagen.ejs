@@ -8,27 +8,37 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
 </head>
 <body>
+  <div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+      <div class="col-md-3 mb-2 mb-md-0">
+        <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+          <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+        </a>
+        <a href="/login" class="btn btn-primary">Volver al menú</a>
+      </div>
     <table>
         <thead>
       <tr>
         <th>ID</th>
         <th>Url</th>
-        <th>Producto ID</th>
         <th>destacado</th>
+        <th>Producto ID</th>
+        <th>Opciones</th>
       </tr>
     </thead>
     <tbody>
         <% image.forEach(image => { %>
           <tr>
            <td><%= image.id %></td>
-            <td><%= image.producto_id%></td>
-            <td><%= image.destacado %></td>
+           <td> <img alt="5" width="210" height="130" src="<%=image.url%>"> </td>
+           <td><%= image.destacado %></td>
+           <td><%= image.product_id%></td>
             <td><a href="/editima/<%=image.id%>">Editar</a>
               <a href="/deleteima/<%=image.id%>">Eliminar</a></td>
-            </tr>
-          <% }); %>
+          <% }); %></td>
+        </tr>
     </tbody>
     </table>
-<a href="/img" class="btn btn-dark">Insertar Imagen</a>
+    <a class="button" href="/img">Insertar imagen</a>
 </body>
 </html>

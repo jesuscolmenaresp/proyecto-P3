@@ -46,3 +46,26 @@ input[type="submit"] {
 input[type="submit"]:hover {
   background: #27ae60;
 }
+
+.my-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border-radius: 5px;
+  background-color: #E5E5E5;
+  color: #333;
+  font-size: 15px;
+  padding: 5px 10px;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Media queries para tamaños de pantalla más pequeños */
+@media only screen and (max-width: 600px) {
+  form {
+    width: 80%;
+  }
+}

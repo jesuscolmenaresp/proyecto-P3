@@ -1,52 +1,158 @@
 body {
-  font-family: 'Roboto', sans-serif; 
-  background-image:url(https://img.freepik.com/fotos-premium/camara-seguridad-colores-sobre-fondo-azul_881695-8930.jpg?size=626&ext=jpg&ga=GA1.1.1880011253.1699056000&semt=ais);
+  font-family: 'Roboto', sans-serif;
+  background-color: #4169E1;
   margin: 0;
   padding: 20px;
   text-align: center;
-  color: #333; 
+  color: #333;
+  border: 5px solid #E6E6E6;
 }
 
 h1 {
-  color: #333;
+  background-color: rgba(3, 181, 187, 0.937);
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  padding: 10px; /* Ajusta el tamaño del padding para controlar la altura de la línea verde */
+  margin-bottom: 10px; /* Añade un margen inferior para separar del contenido siguiente */
 }
 
-table {
-  border-collapse: collapse;
-  width: 80%;
-  margin: 20px auto;
-  background: rgb(186, 182, 255);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  font-family: 'Roboto', sans-serif;
-  color: #333; 
-}
-
-table th,
-table td {
-  padding: 10px 15px;
-  text-align: left;
-  border: 1px solid rgb(10, 0, 0);
-}
-
-table th {
-  background: #f2f2f2;
-}
-
-table td {
-  border-top: 1px solid #e6e6e6;
-}
+  table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: 20px auto;
+    background-color: #F2F2F2;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+  }
+  
+  /* Change font family and size for table content */
+  table th, table td {
+    padding: 10px 15px;
+    text-align: left;
+    border: 1px solid #E6E6E6;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+  }
+  
+  /* Make table header text bold and slightly larger */
+  table th {
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  table td {
+    border-top: 1px solid #E6E6E6;
+    border-radius: 5px;
+  }
+  
+  table tr:nth-of-type(even) {
+    background-color: #E6E6E6;
+  }
+  
+  table thead {
+    background-color: #283E5F;
+    color: #fff;
+  }
+  
+  table tfoot {
+    background-color: #4169E1;
+    color: #fff;
+  }
 
 a.button {
+  font-size: 18px;
   display: inline-block;
   padding: 10px 20px;
   margin: 10px 0;
-  background: #007bff;
+  background-color: #008CBA;
   color: #fff;
   text-decoration: none;
   border-radius: 5px;
-  font-family: 'Roboto', sans-serif; 
+  font-family: 'Roboto', sans-serif;
+  transition: box-shadow 0.25s ease-in-out;
 }
 
 a.button:hover {
-  background: #0056b3;
+  background-color: #0056B3;
+  box-shadow: inset 0 0 0 2em #003A79;
+}
+
+.my-button{
+  float: right;
+  border-radius: 5px;
+  background-color: #096970;
+  color: #f5f5f5;
+  margin-right: 20px;
+  font-size: 15px;
+  padding: 5px 10px;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+a.my-button:hover {
+  background-color: #0056b3;
+  box-shadow: inset 0 0 0 2em #003A79;
+}
+.my-title {
+  clear: right;
+  display: block;
+}
+
+.my-buttonn {
+  float: right;
+  border-radius: 5px;
+  background-color: #E5E5E5;
+  color: #333;
+  margin-right: 20px;
+  font-size: 15px;
+  padding: 5px 10px;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.btn-primary {
+  background-color: #007bff !important;
+  border-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  padding: 15px 20px;
+  margin-top: 20px; 
+  font-size: 18px;
+  border-radius: 5px;
+  font-family: 'Open Sans', sans-serif;
+  transition: box-shadow 0.25s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3 !important;
+  box-shadow: inset 0 0 0 2em #003A79;
+}
+.lead {
+  margin-bottom: 30px; /* Ajusta la separación desde el borde inferior del encabezado */
+}
+/* Estilos para dispositivos pequeños */
+@media only screen and (max-width: 768px) {
+  h1 {
+    font-size: 24px; /* Ajusta el tamaño de la fuente para dispositivos pequeños */
+  }
+
+  table {
+    width: 100%; /* Hace que la tabla ocupe todo el ancho en dispositivos pequeños */
+  }
+
+  a.button,
+  a.my-button,
+  a.my-buttonn,
+  .btn-primary {
+    font-size: 16px; /* Ajusta el tamaño de los botones para dispositivos pequeños */
+  }
 }

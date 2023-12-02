@@ -1,0 +1,326 @@
+/* Estilos para el cuerpo */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #4169E1;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  color: #333;
+  border: 5px solid #E6E6E6;
+}
+
+/* Estilos para el encabezado */
+h1 {
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilos para el contenedor de productos en cuadrícula y lista */
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto 20px;
+  width: 100%;
+}
+
+/* Estilos para los elementos de producto */
+.product {
+  width: 100%;
+  max-width: 400px;
+  margin: 10px auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+  background-color: #F2F2F2;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para la imagen del producto */
+.product img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  border: 1px solid #ccc;
+  margin: 20px 0;
+}
+
+/* Estilos para el nombre del producto */
+.product h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Estilos para el precio del producto */
+.product p {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Estilos para los botones */
+a.button {
+  float: right;
+  border-radius: 5px;
+  background-color: #07acb8;
+  color: #f5f5f5;
+  margin-right: 20px;
+  font-size: 15px;
+  padding: 5px 10px;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+
+a.buttonn {
+  float: right;
+  border-radius: 5px;
+  background-color: rgb(7, 113, 184);
+  color: #f5f5f5;
+  margin-right: 20px;
+  font-size: 15px;
+  padding: 5px 10px;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+
+/* Estilos para el botón al pasar el ratón */
+a.button:hover {
+  background-color: #0056b3;
+  box-shadow: inset 0 0 0 2em #003A79;
+}
+
+a.buttonn:hover {
+  background-color: #00b3a4;
+  box-shadow: inset 0 0 0 2em #003A79;
+}
+/* Estilos adicionales para la vista de lista */
+.product-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product-list .product {
+  width: 80%;
+  margin: 10px 0;
+}
+
+.product-list .product img {
+  width: 100%;
+  height: auto;
+}
+
+.product-list .product h2 {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+/* Estilos para resaltar el botón activo */
+.toggle-buttons button.active {
+  background-color: #0056b3;
+  color: #f5f5f5;
+  box-shadow: inset 0 0 0 2em #003A79;
+}
+
+/* Otros ajustes generales */
+body {
+  font-size: 16px;
+}
+
+.product-grid,
+.product-list {
+  width: 100%;
+}
+
+.toggle-buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.toggle-buttons button {
+  margin: 0 10px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  background-color: #07acb8;
+  color: #fff;
+  border-radius: 5px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Estilos para resaltar el botón al pasar el ratón */
+.toggle-buttons button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilos para resaltar el botón activo */
+.toggle-buttons button.active {
+  background-color: #0056b3;
+  box-shadow: inset 0 0 0 2em #003A79;
+}
+
+/* Ajustes para el título */
+.my-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilos para el formulario de filtros */
+form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin: 20px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+input[type="text"],
+select,
+input[type="submit"] {
+  margin: 5px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+input[type="submit"] {
+  background-color: #07acb8;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Estilos adicionales para la vista de cuadrícula */
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 0 auto 20px;
+  width: 80%;
+}
+
+.product-grid .product {
+  width: calc(33.33% - 20px);
+  height: 380px;
+  margin: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.product-grid .product img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.product-grid .product h2 {
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.product-grid .product p {
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.product-grid .product a.button {
+  float: none;
+  margin-top: 10px;
+}
+
+.product-grid .product img {
+  width: 100%;
+  height: 160px;
+  object-fit: contain;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 15px;
+}
+.my-title {
+  clear: right;
+  display: block;
+}
+
+/* Ajustes para la sección de bienvenida */
+.welcome-section {
+  background-color: rgba(3, 187, 172, 0.937); /* Color de fondo diferente para resaltar */
+  padding: 20px; /* Espaciado interno para separar del contenido circundante */
+  margin-bottom: 20px; /* Ajuste del margen inferior para separar del contenido siguiente */
+}
+
+/* Estilos para el título de bienvenida */
+.my-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px; /* Ajuste del margen inferior */
+}
+
+/* Estilos para los párrafos de bienvenida */
+.my-welcome-paragraph {
+  color: #fff;
+  margin: 10px 0; /* Ajuste del margen superior e inferior */
+}
+
+/* Estilos para el botón Volver */
+.botonnn {
+  display: inline-block;
+  margin: 10px;
+  padding: 8px 15px;
+  font-size: 16px;
+  background-color: #07acb8;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.botonnn:hover {
+  background-color: #0056b3;
+}
+/* Estilos para el botón Agregar al Carrito */
+.boton-carrito {
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.boton-carrito:hover {
+  background-color: rgb(252, 14, 14);
+}

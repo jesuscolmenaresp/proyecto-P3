@@ -6,7 +6,10 @@
   <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
 </head>
 <body>
-  <h1>Listado de Productos</h1>
+  <div class="col-md-3 text-end">
+    <a class="my-button" onclick="location.href='/'">Volver a la interfaz pública</a>
+  </div>
+  <h1 class="my-title">Listado de Productos</h1>
   <table>
     <thead>
       <tr>
@@ -41,13 +44,16 @@
         Inalambricas
         <%  } else if(product.category_id == 5) { %>
           <% } %></td>
-          <td><a href="/edit/<%= product.id %>">Editar</a>
-          <a href="/delete/<%= product.id %>">Eliminar</a></td>
+          <td>
+            <a href="/edit/<%= product.id %>" class="my-buttonn">Editar</a>
+            <a href="/delete/<%= product.id %>" class="my-buttonn">Eliminar</a>
+          </td>
       </tr>
       <% }); %>
     </tbody>
   </table>
   <a class="button" href="/insert">Insertar producto</a>
+  <a class="button" href="/img">Insertar imagen</a>
 
   <h1>Listado de Categorías</h1>
   <table>
@@ -63,12 +69,18 @@
         <tr>
           <td><%= categorie.id %></td>
           <td><%= categorie.name %></td>
-          <td><a href="/editcategories/<%= categorie.id %>">Editar</a>
-          <a href="/deletes/<%= categorie.id %>">Eliminar</a></td>
+          <td><a href="/editcategories/<%= categorie.id %>"class="my-buttonn">Editar</a>
+          <a href="/deletes/<%= categorie.id %>"class="my-buttonn">Eliminar</a></td>
         </tr>
         <% }); %>
     </tbody>
   </table>
   <a class="button" href="/insertcategories">Insertar categoria</a>
+  <main class="container">
+    <div class="bg-body-tertiary p-5 rounded">
+      <h1 class="lead">Visualizar la tabla correspondiente a las imágenes</h1>
+  <a class="btn btn-lg btn-primary" href="/tabimagen" role="button">Ver Tabla de imagenes &raquo;</a>
+</div>
+</main>
 </body>
 </html>

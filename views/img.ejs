@@ -5,17 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insertar imagen</title>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/styleedit.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/styletablaimg.css">
 </head>
 <body>
+    <div class="container">
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+          <div class="col-md-3 mb-2 mb-md-0">
+            <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+              <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+            </a>
+            <a href="/login" class="btn btn-primary">Volver al menú</a>
+          </div>
     <form action="/img" method="post">
         <h2>Agregar Imagen</h2>
-        <label for="url">URL:</label>
-        <input type="url" name="url" required >
-        <label for="producto">inserte id:</label>
-        <input type="text" name="producto_id" required>
+        <label for="url">url:</label>
+        <input type="text" name="url" required >
         <label for="destacado">destacado:</label>
         <input type="text" name="destacado" required>
+        <label for="producto">inserte id:</label>
+        <input type="text" name="product_id" required>
         <input type="submit" value="Insertar" href="/tabimagen">
     </form>
     </body>
