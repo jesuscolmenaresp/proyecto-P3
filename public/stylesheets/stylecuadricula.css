@@ -324,3 +324,14 @@ input[type="submit"]:hover {
 .boton-carrito:hover {
   background-color: rgb(252, 14, 14);
 }
+/* Estilos adicionales para pantallas pequeñas (hasta 600px) */
+@media screen and (max-width: 600px) {
+  /* Puedes agregar estilos específicos para pantallas pequeñas aquí */
+  body {
+    padding: 10px;
+  }
+
+  .product-grid .product {
+    width: calc(50% - 10px);
+  }
+}
