@@ -62,10 +62,3 @@ input[type="submit"]:hover {
   font-weight: bold;
   letter-spacing: 1px;
 }
-
-/* Media queries para tamaños de pantalla más pequeños */
-@media only screen and (max-width: 600px) {
-  form {
-    width: 80%;
-  }
-}
