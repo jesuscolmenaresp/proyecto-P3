@@ -34,16 +34,14 @@
         <td><%= product.description %></td>
         <td><%= product.color %></td>
         <td><%= product.guy %></td>
-        <td><% if(product.category_id == 1) { %>
-        Exteriores
-        <%  } else if(product.category_id == 2) { %>
-        Interiores
-        <%  } else if(product.category_id == 3) { %>
-        Alta resolucion
-        <%  } else if(product.category_id == 4) { %>
-        Inalambricas
-        <%  } else if(product.category_id == 5) { %>
-          <% } %></td>
+        <td>
+          <% categories.forEach(category => { %>
+            <% if (product.category_id === category.id) { %>
+              <%= category.name %>
+            <% } %>
+          <% }); %>
+        </td>
+        
           <td>
             <a href="/edit/<%= product.id %>" class="my-buttonn">Editar</a>
             <a href="/delete/<%= product.id %>" class="my-buttonn">Eliminar</a>
@@ -80,6 +78,12 @@
     <div class="bg-body-tertiary p-5 rounded">
       <h1 class="lead">Visualizar la tabla correspondiente a las imágenes</h1>
   <a class="btn btn-lg btn-primary" href="/tabimagen" role="button">Ver Tabla de imagenes &raquo;</a>
+</div>
+</main>
+<main class="container">
+  <div class="bg-body-tertiary p-5 rounded">
+    <h1 class="lead">Visualizar Compras</h1>
+<a class="btn btn-lg btn-primary" href="/compras" role="button">Ver compras&raquo;</a>
 </div>
 </main>
 </body>

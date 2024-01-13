@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Compra</title>
+</head>
+<body>
+  <h1>Formulario de Compra</h1>
+  <form action="/purchases" method="POST">
+    <input type="hidden" name="api_key" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJkYXRlIjoiMjAyNC0wMS0xMlQwMToxNzoxNy45ODJaIiwiaWF0IjoxNzA1MDIyMjM3fQ.T9GLUs_03Q64zOwqOqGti2SBHBnW2jnK8QlbnPKomkM">
+
+    <!-- Muestra el correo del cliente logueado como un campo de solo lectura -->
+    <label for="client_email">Cliente:</label>
+    <input type="text" id="client_email" name="client_email" value="<%= loggedInClient.email %>" readonly>
+
+    <!-- ID del Producto (menú desplegable) -->
+    <label for="product_id">Producto:</label>
+    <select id="product_id" name="product_id" required data-product-price="<%= (products && products.length > 0) ? products[0].price : 0 %>">
+      <!-- Renderiza solo el producto seleccionado -->
+      <% if (products && products.length > 0) { %>
+        <% products.forEach(product => { %>
+          <option value="<%= product.id %>"><%= product.name %> - $<%= product.price %></option>
+        <% }); %>
+      <% } else { %>
+        <option value="" disabled>No hay productos disponibles</option>
+      <% } %>
+    </select>
+
+    <!-- Cantidad -->
+    <label for="quantity">Cantidad:</label>
+    <input type="number" id="quantity" name="quantity" required>
+
+    <!-- Total Pagado (muestra en la página) -->
+    <p>Total Pagado: $<span id="display_total_paid">0.00</span></p>
+
+    <!-- Total Pagado (campo oculto) -->
+    <input type="hidden" id="total_paid" name="total_paid" value="0">
+
+    <!-- Información de la Tarjeta de Crédito -->
+    <label for="credit_card">Número de Tarjeta:</label>
+    <input type="text" id="credit_card" name="credit_card" required>
+
+    <label for="expiry_date">Fecha de Vencimiento:</label>
+    <input type="text" id="expiry_date" name="expiry_date" placeholder="MM/YYYY" required>
+
+    <label for="cvv">CVV:</label>
+    <input type="text" id="cvv" name="cvv" required>
+
+    <!-- Campos ocultos para recibir detalles del producto -->
+    <% if (products && products.length > 0) { %>
+      <input type="hidden" id="product_id_hidden" name="product_id" value="<%= products[0].id %>">
+      <input type="hidden" id="product_name_hidden" name="product_name" value="<%= products[0].name %>">
+      <input type="hidden" id="product_price_hidden" name="product_price" value="<%= products[0].price %>">
+    <% } else { %>
+      <!-- Manejar la situación en la que no hay productos -->
+      <input type="hidden" id="product_id_hidden" name="product_id" value="">
+      <input type="hidden" id="product_name_hidden" name="product_name" value="">
+      <input type="hidden" id="product_price_hidden" name="product_price" value="">
+    <% } %>
+
+    <!-- Campos ocultos adicionales si es necesario -->
+
+    <!-- Botón de envío -->
+    <button type="submit">Realizar Compra</button>
+
+    <!-- Script para calcular el total_paid al cambiar la cantidad y mostrarlo -->
+    <script>
+      const quantityInput = document.getElementById('quantity');
+      const totalPaidInput = document.getElementById('total_paid');
+      const displayTotalPaid = document.getElementById('display_total_paid');
+      const productSelect = document.getElementById('product_id');
+
+      // Función para actualizar el total_paid y mostrarlo al cambiar la cantidad
+      quantityInput.addEventListener('input', () => {
+        const quantity = parseInt(quantityInput.value);
+        const productPrice = parseFloat(productSelect.dataset.productPrice);
+        const totalPaid = quantity * productPrice;
+        totalPaidInput.value = totalPaid.toFixed(2);
+        displayTotalPaid.textContent = totalPaid.toFixed(2);
+      });
+    </script>
+  </form>
+</body>
+</html>

@@ -7,10 +7,21 @@
   <title>Listado de Productos</title>
   <link rel="stylesheet" type="text/css" href="/stylesheets/stylecuadricula.css">
 </head>
-<body>
-  <a class="buttonn" href="/login">Interfaz Administrativa</a>
+<body class="not-logged-in">
+  <div class="navbar">
+    <ul>
+      <% if (loggedIn) { %>
+        <li><a class="buttonn" href="/logout">Cerrar Sesión</a></li>
+      <% } else { %>
+        <li><a class="buttonn login-btn" href="/loginclient">Iniciar Sesión</a></li>
+      <% } %>
+      <li><a class="buttonn" href="/login">Interfaz Administrativa</a></li>
+    </ul>
+  </div>
+  
+  
   <div class="welcome-section">
-    <h1 class="my-title">Bienvenido a nuestra tienda de Cámaras de Seguridad</h1>
+    <h1 class="my-title">Bienvenido a nuestra tienda SecureView </h1>
     <p class="my-welcome-paragraph">
       En nuestra tienda, encontrarás una amplia variedad de cámaras de seguridad para garantizar la protección de tu hogar o negocio. Nuestros productos ofrecen la última tecnología en vigilancia y te proporcionarán tranquilidad y seguridad.
     </p>
@@ -61,3 +72,4 @@
   </script>
 </body>
 </html>
+

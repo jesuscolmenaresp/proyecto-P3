@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Listado de Productos</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/stylecuadricula.css">
+</head>
+<body class="logged-in">
+  <div class="navbar">
+    <ul>
+      <% if (loggedIn) { %>
+        <li class="welcome-message">BIENVENIDO, <%= username %>!</li>
+        <li><a class="button-logout" href="/logout">Cerrar Sesión</a></li>
+      <% } else { %>
+        <li><a href="/loginclient">Iniciar Sesión</a></li>
+        <li><a href="/registerclient">Registrarse</a></li>
+      <% } %>
+    </ul>
+  </div>
+
+  <div class="welcome-section">
+    <h1 class="my-title"> SecureView</h1>
+    <% if (loggedIn) { %>
+      <p class="my-welcome-paragraph">¡Gracias por iniciar sesión! Explora nuestra selección y encuentra la mejor cámara para ti.</p>
+    <% } else { %>
+      <p class="my-welcome-paragraph">
+        En nuestra tienda, encontrarás una amplia variedad de cámaras de seguridad para garantizar la protección de tu hogar o negocio. Nuestros productos ofrecen la última tecnología en vigilancia y te proporcionarán tranquilidad y seguridad.
+      </p>
+      <p class="my-welcome-paragraph">
+        Explora nuestra selección y elige la cámara que mejor se adapte a tus necesidades. ¡La seguridad de tus seres queridos y tus propiedades es nuestra prioridad!
+      </p>
+    <% } %>
+  </div>
+  <h1 class="my-title">Listado de Productos</h1>
+  <div class="toggle-buttons">
+    <button onclick="cambiarVista('cuadricula')">Vista de Cuadrícula</button>
+    <button onclick="cambiarVista('lista')">Vista de Lista</button>
+  </div>
+
+  <div class="filters">
+    <%- include('./filters') -%>
+  </div>
+  <div class="product-grid">
+    <% products.forEach(product => { %>
+      <div class="product">
+        <h2><%= product.product_name %></h2>
+        <p>Precio: <%= product.price %></p>
+        <p>Descripción: <%= product.description %></p>
+
+        <% if (product.image_url) { %>
+          <img alt="Product image" src="<%= product.image_url %>" width="200" height="150">
+        <% } else { %>
+          No hay imagen disponible
+        <% } %>
+        <a class="button" href="/detalles/<%= product.product_id %>">Ver más detalles</a>
+      </div>
+    <% }); %>
+  </div>
+  <script>
+    // Establecer la vista predeterminada como cuadrícula
+    document.addEventListener('DOMContentLoaded', function () {
+      const productGrid = document.querySelector('.product-grid');
+      productGrid.classList.remove('product-list');
+    });
+
+    function cambiarVista(vista) {
+      const productGrid = document.querySelector('.product-grid');
+      if (vista === 'cuadricula') {
+        productGrid.classList.remove('product-list');
+      } else if (vista === 'lista') {
+        productGrid.classList.add('product-list');
+      }
+    }
+  </script>
+</body>
+</html>
+

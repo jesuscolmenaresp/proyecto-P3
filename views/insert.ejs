@@ -17,6 +17,8 @@
             <a href="/login" class="btn btn-primary">Volver al menú</a>
           </div>
     <form action="/insert-product" method="POST">
+        <label for="name">id</label>
+        <input type="text" name="id" value="" placeholder="id del producto" required>
         <label for="name">Nombre</label>
         <input type="text" name="name" value="" placeholder="Nombre del producto" required>
         <label for="code">Codigo</label>
@@ -31,12 +33,11 @@
         <input type="text" name="guy" value="" placeholder="tipo de producto" required>
         <label for="category_id">Categoria</label>
         <select name="category_id" required>
-            <option value="1">Exteriores</option>
-            <option value="2">Interiores</option>
-            <option value="3">Alta resolucion</option>
-            <option value="4">Inalambricas</option>
-            </select>
-            <input type="submit" value="Insertar">
+        <% categories.forEach(category => { %>
+        <option value="<%= category.id %>"><%= category.name %></option>
+        <% }); %>
+        </select>
+        <input type="submit" value="Insertar">
     </form>
 </body>
 </html>

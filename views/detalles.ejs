@@ -8,7 +8,7 @@
   <link rel="stylesheet" type="text/css" href="/stylesheets/stylecuadricula.css">
 </head>
 </head>
-<body>
+<body class="not-logged-in">
   <a class="botonnn" onclick="location.href='/'">Volver</a>
   <div class="product-details">
     <div class="product">
@@ -23,14 +23,39 @@
       <% } else { %>
         No hay imagen disponible
       <% } %>
-    <a class="boton-carrito" onclick="agregarAlCarrito()">Agregar al Carrito</a>
+      <form>
+        <!-- Campos ocultos para pasar detalles del producto al formulario de compra -->
+        <input type="hidden" id="product_id_hidden" value="<%= products[0].product_id %>">
+        <input type="hidden" id="product_name_hidden" value="<%= products[0].product_name %>">
+        <input type="hidden" id="product_price_hidden" value="<%= products[0].price %>">
+      
+        <div class="navbar">
+          <ul>
+            <% if (loggedIn) { %>
+              <a class="boton-carrito" onclick="agregarAlCarrito()">Comprar</a>
+            <% } else { %>
+              <a class="boton-carrito" onclick="agregarAlCarritoo()">Comprar</a>
+            <% } %>
+          </ul>
+        </div>
+      </form>
     </div>
   </div>
-   <!-- Script para manejar la acción del botón de compras -->
-   <script>
-    function agregarAlCarrito() {
-      alert("Producto agregado al carrito");
-    }
+  <script>
+ function agregarAlCarrito() {
+  // Recuperar detalles del producto
+  var productId = document.getElementById('product_id_hidden').value;
+  var productName = document.getElementById('product_name_hidden').value;
+  var productPrice = document.getElementById('product_price_hidden').value;
+
+  // Redirige al formulario de compra y pasa los detalles del producto
+  window.location.href = '/formulario?product_id=' + productId + '&product_name=' + productName + '&product_price=' + productPrice;
+}
+
+function agregarAlCarritoo() {
+  alert("Por favor regístrese para comprar");
+  window.location.href = '/registerclient';
+}
   </script>
 </body>
 </html>

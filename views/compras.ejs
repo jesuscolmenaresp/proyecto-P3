@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interfaz Administrativa - Todos los Clientes y Compras</title>
+</head>
+<body>
+  <h1>Clientes y Compras</h1>
+
+  <h2>Clientes</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Correo Electrónico</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% clients.forEach(client => { %>
+        <tr>
+          <td><%= client.id %></td>
+          <td><%= client.name %></td>
+          <td><%= client.email %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+
+  <h2>Compras</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Cliente ID</th>
+        <th>Producto ID</th>
+        <th>Cantidad</th>
+        <th>Total Pagado</th>
+        <th>Fecha</th>
+        <th>IP Cliente</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% purchases.forEach(purchase => { %>
+        <tr>
+          <td><%= purchase.id %></td>
+          <td><%= purchase.client_id %></td>
+          <td><%= purchase.product_id %></td>
+          <td><%= purchase.quantity %></td>
+          <td><%= purchase.total_paid %></td>
+          <td><%= purchase.fecha %></td>
+          <td><%= purchase.ip_cliente %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+</body>
+</html>
