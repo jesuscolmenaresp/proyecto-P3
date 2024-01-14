@@ -295,4 +295,19 @@ getDetalles(product_id) {
       });
     });
   },
+  // Función para obtener todas las compras y clientes
+getAllClientsAndPurchases() {
+  return new Promise((resolve, reject) => {
+    const query = 'SELECT * FROM clients; SELECT * FROM purchases;';
+    db.all(query, [], (err, rows) => {
+      if (err) {
+        reject(err);
+      } else {
+        const clients = rows[0];
+        const purchases = rows[1];
+        resolve({ clients, purchases });
+      }
+    });
+  });
+}
 }

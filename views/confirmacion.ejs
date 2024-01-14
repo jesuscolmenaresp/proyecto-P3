@@ -1,13 +1,32 @@
-<!-- purchaseConfirmation.ejs -->
+<!-- confirmacion.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Confirmación de Compra</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
 </head>
 <body>
+  <a class="my-button" onclick="location.href='/'">Volver a la interfaz pública</a>
   <h1>Confirmación de Compra</h1>
-  <!-- Mostrar detalles de la compra aquí -->
+  <table>
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Total Pagado</th>
+        <th>Fecha de Compra</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= purchase.product_id %></td>
+        <td><%= purchase.quantity %></td>
+        <td><%= purchase.total_paid %></td>
+        <td><%= purchase.fecha %></td>
+      </tr>
+    </tbody>
+  </table>
 </body>
 </html>

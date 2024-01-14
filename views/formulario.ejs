@@ -9,7 +9,7 @@
 <body>
   <a class="botonnn" onclick="location.href='/'">Volver</a>
   <h1>Formulario de Compra</h1>
-  <form action="/purchases" method="POST">
+  <form action="/process-purchase" method="POST">
  <!-- Campo oculto para el client_id -->
 <input type="hidden" id="client_id" name="client_id" value="<%= loggedInClient ? loggedInClient.id : '' %>">
 <!-- Muestra el correo del cliente logueado como un campo de solo lectura -->

@@ -425,14 +425,42 @@ router.get('/purchases/:purchaseID', (req, res) => {
     });
 });
 
+// Ruta para la vista de todas las compras y clientes
 router.get('/compras', async (req, res) => {
   try {
-    const allClients = await db.getClients();
-    const allPurchases = await db.getPurchaseByID();
-    res.render('compras', { clients: allClients, purchases: allPurchases });
+    const clients = await db.getClient();
+    const purchases = await db.getPurchaseByID();
+
+    res.render('compras', { clients, purchases });
   } catch (error) {
     console.error(error);
-    res.render('error', { error: 'Error al obtener datos de la base de datos' });
+    res.status(500).render('error', { error: 'Error interno del servidor', details: error.message });
+  }
+});
+
+
+router.post('/process-purchase', async (req, res) => {
+  try {
+    const loggedInClient = req.session.client;
+
+    // Obtener los datos del formulario
+    const { client_id, product_id, quantity, total_paid, credit_card, expiry_date, cvv, ip_cliente } = req.body;
+
+    // Obtener la fecha actual
+    const fecha = new Date().toISOString();
+
+    // Insertar la compra en la base de datos
+    await db.insertPurchase(client_id, product_id, quantity, total_paid, fecha, ip_cliente);
+
+    // Redirigir a una página de éxito o a donde desees
+    res.render('confirmacion', { 
+      loggedInClient, 
+      purchase: { product_id, quantity, total_paid, fecha }
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).render('error', { error: 'Error interno del servidor', details: error.message });
   }
 });
 

@@ -95,3 +95,9 @@ a.buttonn {
   color: red;
   margin-top: -10px; /* Ajusta según sea necesario para alinear con el campo de contraseña */
 }
+/* Estilos para pantallas más pequeñas */
+@media only screen and (max-width: 600px) {
+  form {
+    max-width: 100%;
+  }
+}
