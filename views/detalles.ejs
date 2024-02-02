@@ -6,6 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Detalles del Producto</title>
   <link rel="stylesheet" type="text/css" href="/stylesheets/stylecuadricula.css">
+  <meta property="og:title" content="Listado de Productos">
+<meta property="og:description" content="Explora nuestra selección y elige la cámara que mejor se adapte a tus necesidades. ¡La seguridad de tus seres queridos y tus propiedades es nuestra prioridad!">
+<meta property="og:image" content="https://scontent.fccs3-2.fna.fbcdn.net/v/t39.30808-6/424972193_1536870577156329_1611919734222123510_n.jpg?stp=dst-jpg_s640x640&_nc_cat=102&ccb=1-7&_nc_sid=dd5e9f&_nc_ohc=YekurxFGvcEAX-GIb6b&_nc_ht=scontent.fccs3-2.fna&oh=00_AfABulwEYsMj4tCSzcdNf1QXikkR1Ws7VfqjFYuYJJlkJg&oe=65C206F4">
+<meta property="og:url" content="https://camarasdesegurida.onrender.com">
+<meta property="og:type" content="website">
 </head>
 </head>
 <body class="not-logged-in">
@@ -56,6 +61,38 @@ function agregarAlCarritoo() {
   alert("Por favor regístrese para comprar");
   window.location.href = '/registerclient';
 }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": [
+        <% products.forEach((product, index) => { %>
+          {
+            "@type": "Product",
+            "name": "<%= product.product_name ? product.product_name : product.name %>",
+            "sku": "<%= product.code %>",
+            "description": "<%= product.description %>",
+            "image": "<%= product.image_url %>",
+            "url": "https://camarasdesegurida.onrender.com/detalles",
+            "offers": {
+              "@type": "Offer",
+              "price": "<%= product.price %>",
+              "priceCurrency": "USD",  // Cambia a tu moneda preferida si es diferente
+              "availability": "https://schema.org/<%= product.availability %>"
+            }
+          }<%= index < products.length - 1 ? ',' : '' %>
+        <% }); %>
+      ]
+    }
+  </script>
+  <!-- Agrega el código de Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBY2GR9G3R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PBY2GR9G3R');
   </script>
 </body>
 </html>

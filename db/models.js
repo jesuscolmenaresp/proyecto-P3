@@ -392,7 +392,6 @@ updateResetToken(email, resetToken, expiryDate) {
     });
   });
 },
-
 isValidResetToken(token) {
   return new Promise((resolve, reject) => {
     const currentDate = new Date();
@@ -406,7 +405,6 @@ isValidResetToken(token) {
         resolve(false);
       } else {
         const tokenExpiryDate = new Date(row.reset_token_expiry);
-
         // Verificar si el token ha expirado
         const isValid = currentDate < tokenExpiryDate;
         resolve(isValid);

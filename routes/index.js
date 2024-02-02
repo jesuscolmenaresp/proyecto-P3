@@ -626,24 +626,19 @@ router.get('/reset-password', async (req, res) => {
     res.status(500).render('error', { error: 'Error interno del servidor', details: error.message });
   }
 });
-
 // Ruta POST para manejar el envío del formulario de restablecimiento de contraseña
 router.post('/reset-password', async (req, res) => {
   const { token, new_password, confirm_password } = req.body;
 
   try {
     const isTokenValid = await db.isValidResetToken(token);
-
     if (isTokenValid) {
       // Verifica que las contraseñas coincidan
       if (new_password !== confirm_password) {
         return res.render('passwordRecoveryError', { error: 'Las contraseñas no coinciden.' });
       }
-
       // Lógica para actualizar la contraseña en la base de datos
       await db.updatePasswordUsingToken(token, new_password);
-
-      // Pass `passwordChanged` as true to the view
       res.redirect(`/loginclient?passwordChanged=true`);
     } else {
       res.render('passwordRecoveryError', { error: 'El token no es válido o ha expirado.' });
