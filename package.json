@@ -16,6 +16,7 @@
     "express-session": "^1.17.3",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
+    "node-addon-api": "^7.1.0",
     "nodemailer": "^6.9.9",
     "sqlite3": "^5.1.6"
   },
