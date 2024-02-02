@@ -302,7 +302,10 @@ input[type="submit"]:hover {
   border: 1px solid #ccc;
   padding: 10px;
   text-align: left;
+  margin-bottom: 30px; /* Ajuste del margen inferior adicional */
 }
+
+
 
 .product-grid .product img {
   width: 100%;
@@ -325,7 +328,7 @@ input[type="submit"]:hover {
 
 .product-grid .product a.button {
   float: none;
-  margin-top: 10px;
+  margin-top: 5px; /* Ajuste del margen superior */
 }
 
 .product-grid .product img {
