@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Productos por Calificación</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/stylecuadricula.css">
+</head>
+<body class="not-logged-in">
+  <div class="navbar">
+    <a class="botonnn" onclick="location.href='/'">Volver</a>
+  </div>
+
+  <h1 class="my-title">Lista de Productos por Calificación</h1>
+
+  <div class="welcome-section">
+    <p class="my-welcome-paragraph">¡Explore los productos mejor calificados por nuestros clientes!</p>
+  </div>
+
+  <% if (products.length > 0) { %>
+    <div class="product-grid">
+      <% products.forEach(product => { %>
+        <div class="product">
+          <h2><%= product.name %></h2>
+          <p>Precio: <%= product.price %></p>
+          <p>Descripción: <%= product.description %></p>
+
+          <!-- Agrega la sección de calificaciones -->
+          <div class="ratings">
+            <p>Calificación Promedio: <%= product.average_rating || 'No calificado aún' %></p>
+            <!-- Puedes mostrar las calificaciones individuales si lo deseas -->
+          </div>
+
+          <% if (product.image_url) { %>
+            <img alt="Product image" src="<%= product.image_url %>" width="200" height="150">
+          <% } else { %>
+            No hay imagen disponible
+          <% } %>
+          <a class="button" href="/calificar/<%= product.id %>">Calificar producto</a>
+        </div>
+      <% }); %>
+    </div>
+  <% } else { %>
+    <p>No hay productos disponibles.</p>
+  <% } %>
+</body>
+</html>

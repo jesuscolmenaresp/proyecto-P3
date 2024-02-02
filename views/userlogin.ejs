@@ -12,7 +12,10 @@
     <ul>
       <% if (loggedIn) { %>
         <li class="welcome-message">BIENVENIDO, <%= username %>!</li>
+        <a class="button" href="/listacalificaciones">Calificar productos</a>
+
         <li><a class="button-logout" href="/logout">Cerrar Sesión</a></li>
+        
       <% } else { %>
         <li><a href="/loginclient">Iniciar Sesión</a></li>
         <li><a href="/registerclient">Registrarse</a></li>
@@ -45,10 +48,12 @@
   <div class="product-grid">
     <% products.forEach(product => { %>
       <div class="product">
-        <h2><%= product.product_name %></h2>
+        <h2><%= product.product_name ? product.product_name : product.name %></h2>
         <p>Precio: <%= product.price %></p>
         <p>Descripción: <%= product.description %></p>
-
+        <div class="ratings">
+          <p>Calificación Promedio: <%= product.average_rating ? product.average_rating.toFixed(2) : 'No calificado aún' %></p>
+         </div>
         <% if (product.image_url) { %>
           <img alt="Product image" src="<%= product.image_url %>" width="200" height="150">
         <% } else { %>
@@ -74,6 +79,6 @@
       }
     }
   </script>
-</body>
+  </body>
 </html>
 

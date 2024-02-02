@@ -1,0 +1,59 @@
+<!-- calificar.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calificar Producto</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/stylecuadricula.css">
+</head>
+<body class="not-logged-in">
+  <div class="navbar">
+    <a class="botonnn" onclick="location.href='/listacalificaciones'">Volver</a>
+  </div>
+
+  <h1 class="my-title">Calificar Producto</h1>
+  <% if (product) { %>
+    <div class="ratings">
+      <!-- Verificar si el producto ya ha sido calificado -->
+      <% if (hasRated) { %>
+        <h3>¡Producto ya calificado!</h3>
+        <!-- Puedes personalizar el mensaje según tus necesidades -->
+      <% } else { %>
+        <h3>Calificar el producto: <%= product.product_name %></h3>
+      <form id="calificarForm" action="/calificar/<%= product.product_id %>" method="post">
+        <label for="rating">Calificación:</label>
+        <select name="rating" id="rating">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <button type="submit" onclick="showAlert()">Calificar</button>
+      </form>
+      <% } %>
+    </div>
+
+    <!-- Mostrar la imagen del producto si está disponible -->
+    <% if (product.image_url) { %>
+      <img alt="Product image" src="<%= product.image_url %>" width="200" height="150">
+    <% } else { %>
+      No hay imagen disponible
+    <% } %>
+
+    <!-- Agregado: Mostrar el mensaje de alerta después de calificar -->
+    <script>
+      function showAlert() {
+        // Muestra el mensaje de alerta
+        alert('Producto calificado. ¡Gracias!');
+      }
+    </script>
+  <% } else { %>
+    <p>No se encontró el producto.</p>
+  <% } %>
+
+</body>
+</html>

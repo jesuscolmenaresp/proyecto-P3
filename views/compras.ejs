@@ -10,12 +10,14 @@
 <body>
   <a href="/login" class="btn btn-primary">Volver al menú</a>
   <h1>Interfaz Administrativa - Compras y Clientes</h1>
+  <div class="navbar">
   <h2>Clientes:</h2>
   <ul>
     <% clients.forEach(client => { %>
       <li><%= client.email %></li>
     <% }); %>
   </ul>
+</div>
   <!-- Mostrar lista de compras -->
   <h2>Compras:</h2>
   <table>

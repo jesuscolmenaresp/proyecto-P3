@@ -22,9 +22,22 @@
         <input type="text" name="url" required >
         <label for="destacado">destacado:</label>
         <input type="text" name="destacado" required>
-        <label for="producto">inserte id:</label>
-        <input type="text" name="product_id" required>
+        <label for="producto">Seleccione el producto:</label>
+        <select name="product_id" id="productSelect" required>
+            <% products.forEach(product => { %>
+                <option value="<%= product.id %>"><%= product.name %></option>
+            <% }); %>
+        </select>
+        <label for="name">id</label>
+        <input type="text" name="id" id="idInput" value="" placeholder="id del producto" required>
         <input type="submit" value="Insertar" href="/tabimagen">
     </form>
+
+    <script>
+        // JavaScript para actualizar automáticamente el campo 'id' al seleccionar un producto
+        document.getElementById('productSelect').addEventListener('change', function() {
+            document.getElementById('idInput').value = this.value;
+        });
+    </script>
     </body>
     </html>

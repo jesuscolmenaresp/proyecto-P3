@@ -6,6 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Listado de Productos</title>
   <link rel="stylesheet" type="text/css" href="/stylesheets/stylecuadricula.css">
+<meta property="og:title" content="Listado de Productos">
+<meta property="og:description" content="Explora nuestra selección y elige la cámara que mejor se adapte a tus necesidades. ¡La seguridad de tus seres queridos y tus propiedades es nuestra prioridad!">
+<meta property="og:image" content="https://scontent.fccs3-2.fna.fbcdn.net/v/t39.30808-6/424972193_1536870577156329_1611919734222123510_n.jpg?stp=dst-jpg_s640x640&_nc_cat=102&ccb=1-7&_nc_sid=dd5e9f&_nc_ohc=YekurxFGvcEAX-GIb6b&_nc_ht=scontent.fccs3-2.fna&oh=00_AfABulwEYsMj4tCSzcdNf1QXikkR1Ws7VfqjFYuYJJlkJg&oe=65C206F4">
+<meta property="og:url" content="https://camarasdesegurida.onrender.com">
+<meta property="og:type" content="website">
 </head>
 <body class="not-logged-in">
   <div class="navbar">
@@ -18,7 +23,6 @@
       <li><a class="buttonn" href="/login">Interfaz Administrativa</a></li>
     </ul>
   </div>
-  
   
   <div class="welcome-section">
     <h1 class="my-title">Bienvenido a nuestra tienda SecureView </h1>
@@ -41,10 +45,12 @@
   <div class="product-grid">
     <% products.forEach(product => { %>
       <div class="product">
-        <h2><%= product.product_name %></h2>
+        <h2><%= product.product_name ? product.product_name : product.name %></h2>
         <p>Precio: <%= product.price %></p>
         <p>Descripción: <%= product.description %></p>
-
+    <div class="ratings">
+    <p>Calificación Promedio: <%= product.average_rating ? product.average_rating.toFixed(2) : 'No calificado aún' %></p>
+   </div>
         <% if (product.image_url) { %>
           <img alt="Product image" src="<%= product.image_url %>" width="200" height="150">
         <% } else { %>
@@ -70,6 +76,38 @@
       }
     }
   </script>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": [
+      <% products.forEach((product, index) => { %>
+        {
+          "@type": "Product",
+          "name": "<%= product.product_name ? product.product_name : product.name %>",
+          "sku": "<%= product.code %>",
+          "description": "<%= product.description %>",
+          "image": "<%= product.image_url %>",
+          "url": "https://camarasdesegurida.onrender.com",
+          "offers": {
+            "@type": "Offer",
+            "price": "<%= product.price %>",
+            "priceCurrency": "USD",  // Cambia a tu moneda preferida si es diferente
+            "availability": "https://schema.org/<%= product.availability %>"
+          }
+        }<%= index < products.length - 1 ? ',' : '' %>
+      <% }); %>
+    ]
+  }
+</script>
+<!-- Agrega el código de Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PBY2GR9G3R"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PBY2GR9G3R');
+</script>
 </body>
 </html>
 

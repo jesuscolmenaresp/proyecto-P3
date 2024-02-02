@@ -25,6 +25,16 @@
   
     <button type="submit">Iniciar Sesión</button>
     <a class="buttonn" href="/registerclient">Registrarse</a>
+    <p><a href="/recover-password">¿Olvidaste tu contraseña?</a></p>
   </form>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const passwordChanged = urlParams.get('passwordChanged');
+
+    if (passwordChanged === 'true') {
+      // Muestra el mensaje de alerta
+      alert('Contraseña cambiada exitosamente. ¡Gracias!');
+    }
+  </script>
 </body>
 </html>

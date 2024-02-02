@@ -2,6 +2,8 @@ const { name } = require('ejs');
 const express = require('express');
 const session = require('express-session');
 const axios = require('axios');
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
 const { reset } = require('nodemon');
 const router = express.Router();
 const db = require('../db/models');
@@ -12,11 +14,18 @@ router.get('/', async (req, res) => {
   try {
     const loggedIn = req.session && req.session.client;
     const username = loggedIn ? req.session.client.email : null;   
-    const { product_name, description, category_name, color, guy } = req.query;
-    const products = await db.consultable(product_name, description, category_name, color, guy);
+    const { product_name, description, category_name, color, guy, sort } = req.query;
+    let products;
+    if (sort === 'calificacion') {
+      // Obtener productos ordenados por calificación
+      products = await db.getProductsOrderedByRating();
+    } else {
+      // Obtener productos según los filtros
+      products = await db.consultable(product_name, description, category_name, color, guy);
+    }
     if (loggedIn) {
       // Usuario logueado
-      res.render('userlogin', { loggedIn, username, products });
+      res.render('userlogin', { loggedIn, username, products, product_name });
     } else {
       // Usuario no logueado
       res.render('listaproduct', { products, loggedIn });
@@ -197,16 +206,24 @@ router.get('/tabimagen', (req, res) => {
     })
   });
   
-router.get('/img', (req, res) => {
-  res.render('img')
-})
+  router.get('/img', (req, res) => {
+    // Obtener la lista de productos de la base de datos
+    db.getProducts()
+        .then(products => {
+            res.render('img', { products });
+        })
+        .catch(err => {
+            console.log(err);
+            res.render('img', { products: [] });
+        });
+});
 
 router.post('/img', (req, res) => {
-  const {url, destacado, product_id} = req.body;
-  console.log(url, destacado, product_id);
-  db.insertimagen(url, destacado, product_id)
+  const {id, url, destacado, product_id} = req.body;
+  console.log(id, url, destacado, product_id);
+  db.insertimagen(id, url, destacado, product_id)
   .then(() => {
-    res.redirect('tabimagen')
+    res.redirect('/tabimagen')
     })
     .catch(err => {
     console.log(err);
@@ -257,6 +274,30 @@ router.post('/register', (req, res) => {
   const { email, password } = req.body;
   db.insertClient(email, password)
     .then(() => {
+      // Envío de correo de bienvenida
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.GMAIL_USER,
+          pass: process.env.GMAIL_PASS,
+        },
+      });
+      
+
+      const mailOptions = {
+        from: process.env.GMAIL_USER,
+        to: email, // Envía el correo de bienvenida al correo electrónico del cliente registrado
+        subject: 'Bienvenido a Nuestra Tienda',
+        text: 'Gracias por registrarte en nuestra tienda SecureView. Esperamos que disfrutes de tus compras.',
+      };
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error('Error al enviar el correo de bienvenida:', error);
+        } else {
+          console.log('Correo electrónico de bienvenida enviado: ' + info.response);
+        }
+      });
+      // Redirecciona después de enviar el correo de bienvenida
       res.redirect('/');
     })
     .catch(err => {
@@ -438,7 +479,6 @@ router.get('/compras', async (req, res) => {
   }
 });
 
-
 router.post('/process-purchase', async (req, res) => {
   try {
     const loggedInClient = req.session.client;
@@ -452,14 +492,164 @@ router.post('/process-purchase', async (req, res) => {
     // Insertar la compra en la base de datos
     await db.insertPurchase(client_id, product_id, quantity, total_paid, fecha, ip_cliente);
 
+    // Envío de correo de confirmación
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
+      },
+    });
+
+    const mailOptions = {
+      from: process.env.GMAIL_USER,
+      to: loggedInClient.email, // Envía el correo de confirmación al correo electrónico del cliente registrado
+      subject: 'Confirmación de Compra',
+      text: `Gracias por tu compra. Detalles de la compra:\n\nProducto: ${product_id}\nCantidad: ${quantity}\nTotal Pagado: ${total_paid}\nFecha de Compra: ${fecha}`,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Error al enviar el correo de confirmación:', error);
+      } else {
+        console.log('Correo electrónico de confirmación enviado:', info.response);
+      }
+    });
+
     // Redirigir a una página de éxito o a donde desees
-    res.render('confirmacion', { 
-      loggedInClient, 
+    res.render('confirmacion', {
+      loggedInClient,
       purchase: { product_id, quantity, total_paid, fecha }
     });
 
   } catch (error) {
     console.error(error);
+    res.status(500).render('error', { error: 'Error interno del servidor', details: error.message });
+  }
+});
+
+router.get('/listacalificaciones', async (req, res) => {
+  try {
+    const products = await db.getProductsOrderedByRating();
+    const message = req.query.message || null; // Obtén el mensaje de los parámetros de la URL
+    res.render('listacalificaciones', { products, loggedIn: req.session && req.session.client, message });
+  } catch (err) {
+    console.error(err);
+    res.render('error', { error: err.message });
+  }
+});
+
+// Ruta para mostrar la vista de calificación
+router.get('/calificar/:id', async (req, res) => {
+  const productId = req.params.id;
+  const clientId = req.session.client.id;
+  try {
+    // Verificar si el cliente ya ha calificado el producto
+    const hasRated = await db.hasClient(productId, clientId);
+    // Obtén los detalles del producto para mostrar en la vista de calificación
+    const product = await db.getProductDetailsForRating(productId);
+    // Renderiza la vista de calificación con los detalles del producto y la información sobre si ya ha calificado
+    res.render('calificar', { product, loggedIn: req.session && req.session.client, hasRated });
+  } catch (err) {
+    console.error(err);
+    res.render('error', { error: err.message });
+  }
+});
+
+// Ruta para procesar la calificación
+router.post('/calificar/:id', async (req, res) => {
+  const productId = req.params.id;
+  const { rating } = req.body;
+  const clientId = req.session.client.id;
+  try {
+    await db.insertProductRating(productId, clientId, rating);
+    res.redirect(`/listacalificaciones?message=Calificación exitosa para el producto ${productId}`);
+  } catch (err) {
+    console.error(err);
+    res.render('error', { error: err.message });
+  }
+});
+
+router.get('/recover-password', (req, res) => {
+  res.render('recuperarpassword');
+});
+
+router.post('/recover-password', async (req, res) => {
+  try {
+    const { email } = req.body;
+    const recoveryToken = crypto.randomBytes(32).toString('hex');
+    const expiryDate = new Date(Date.now() + 3600000); // Vence en 1 hora
+
+    // Almacena el token y la fecha de expiración en la base de datos
+    await db.updateResetToken(email, recoveryToken, expiryDate);
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS,
+      },
+    });
+
+// Detalles del correo electrónico
+const mailOptions = {
+  from: process.env.GMAIL_USER,
+  to: email,
+  subject: 'Recuperación de Contraseña',
+  text: `Haga clic en el siguiente enlace para restablecer su contraseña: https://camarasdesegurida.onrender.com/reset-password?token=${recoveryToken}`,
+};
+    // Envía el correo electrónico
+    await transporter.sendMail(mailOptions);
+
+    // Renderiza la página de confirmación
+    res.render('passwordRecoveryConfirmation', { email });
+  } catch (error) {
+    console.error(error);
+    res.status(500).render('error', { error: 'Error interno del servidor', details: error.message });
+  }
+});
+// Ruta GET para mostrar la página de restablecimiento de contraseña
+router.get('/reset-password', async (req, res) => {
+  const { token } = req.query;
+  console.log('Token:', token);
+  try {
+    const isTokenValid = await db.isValidResetToken(token);
+
+    if (isTokenValid) {
+      // Inicializa passwordChanged como falso al cargar la página
+      res.render('resetPassword', { token, passwordChanged: false });
+    } else {
+      res.render('passwordRecoveryError', { error: 'El token no es válido o ha expirado.' });
+    }
+  } catch (error) {
+    console.error('Error al verificar el token:', error);
+    res.status(500).render('error', { error: 'Error interno del servidor', details: error.message });
+  }
+});
+
+// Ruta POST para manejar el envío del formulario de restablecimiento de contraseña
+router.post('/reset-password', async (req, res) => {
+  const { token, new_password, confirm_password } = req.body;
+
+  try {
+    const isTokenValid = await db.isValidResetToken(token);
+
+    if (isTokenValid) {
+      // Verifica que las contraseñas coincidan
+      if (new_password !== confirm_password) {
+        return res.render('passwordRecoveryError', { error: 'Las contraseñas no coinciden.' });
+      }
+
+      // Lógica para actualizar la contraseña en la base de datos
+      await db.updatePasswordUsingToken(token, new_password);
+
+      // Pass `passwordChanged` as true to the view
+      res.redirect(`/loginclient?passwordChanged=true`);
+    } else {
+      res.render('passwordRecoveryError', { error: 'El token no es válido o ha expirado.' });
+    }
+  } catch (error) {
+    console.error('Error al procesar la solicitud de restablecimiento de contraseña:', error);
     res.status(500).render('error', { error: 'Error interno del servidor', details: error.message });
   }
 });

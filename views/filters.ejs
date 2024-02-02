@@ -19,7 +19,12 @@
       <option value="Inalambricas">Inalambricas</option>
       <input type="text" name="color" placeholder="Color">
       <input type="text" name="guy" placeholder="tipo">
-    </select>
+ <!-- Nuevo campo de filtro para ordenar por calificación -->
+ <label for="sort">Ordenar:</label>
+ <select name="sort" id="sort">
+  <option value="">Predeterminado</option>
+  <option value="calificacion">Mejor calificados</option>
+ </select>
     <input type="submit" value="Aplicar filtros">
   </form>
 </body>

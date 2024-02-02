@@ -156,3 +156,18 @@ a.my-button:hover {
     font-size: 16px; /* Ajusta el tamaño de los botones para dispositivos pequeños */
   }
 }
+
+.navbar {
+  background-color: rgba(3, 181, 187, 0.937);
+  color: #ffffff;
+}
+
+h2 {
+  background-color: rgba(3, 181, 187, 0.937);
+  color: #ffffff;
+  font-size: 28px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  padding: 10px; /* Ajusta el tamaño del padding para controlar la altura de la línea verde */
+  margin-bottom: 10px; /* Añade un margen inferior para separar del contenido siguiente */
+}
