@@ -12,7 +12,6 @@
 <meta property="og:url" content="https://camarasdesegurida.onrender.com">
 <meta property="og:type" content="website">
 </head>
-</head>
 <body class="not-logged-in">
   <a class="botonnn" onclick="location.href='/'">Volver</a>
   <div class="product-details">
@@ -62,30 +61,33 @@ function agregarAlCarritoo() {
   window.location.href = '/registerclient';
 }
   </script>
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      "itemListElement": [
-        <% products.forEach((product, index) => { %>
-          {
-            "@type": "Product",
-            "name": "<%= product.product_name ? product.product_name : product.name %>",
-            "sku": "<%= product.code %>",
-            "description": "<%= product.description %>",
-            "image": "<%= product.image_url %>",
-            "url": "https://camarasdesegurida.onrender.com/detalles",
-            "offers": {
-              "@type": "Offer",
-              "price": "<%= product.price %>",
-              "priceCurrency": "USD",  // Cambia a tu moneda preferida si es diferente
-              "availability": "https://schema.org/<%= product.availability %>"
-            }
-          }<%= index < products.length - 1 ? ',' : '' %>
-        <% }); %>
-      ]
-    }
-  </script>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": [
+      <% products.forEach((product, index) => { %>
+        {
+          "@type": "Product",
+          "@id": "https://camarasdesegurida.onrender.com/detalles/<%= product.product_id %>",
+          "position": <%= index + 1 %>,
+          "name": "<%= product.product_name ? product.product_name : product.name %>",
+          "sku": "<%= product.code %>",
+          "description": "<%= product.description %>",
+          "image": "<%= product.image_url %>",
+          "url": "https://camarasdesegurida.onrender.com/detalles",
+          "offers": {
+            "@type": "Offer",
+            "price": "<%= product.price %>",
+            "priceCurrency": "USD",  // Cambia a tu moneda preferida si es diferente
+            "availability": "https://schema.org/<%= product.availability %>"
+          }
+        }<%= index < products.length - 1 ? ',' : '' %>
+      <% }); %>
+    ]
+  }
+</script>
+
   <!-- Agrega el código de Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBY2GR9G3R"></script>
   <script>
