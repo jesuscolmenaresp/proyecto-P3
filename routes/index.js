@@ -571,12 +571,24 @@ router.post('/calificar/:id', async (req, res) => {
 });
 
 router.get('/recover-password', (req, res) => {
-  res.render('recuperarpassword');
+  const { error } = req.query;
+  res.render('recuperarpassword', { error });
 });
+
 
 router.post('/recover-password', async (req, res) => {
   try {
     const { email } = req.body;
+
+    // Obtener cliente por correo electrónico
+    const user = await db.getClientByEmail(email);
+
+    // Verificar si el usuario está registrado
+    if (!user) {
+      // Si el usuario no está registrado, redirige y muestra un mensaje de error
+      return res.redirect('/recover-password?error=Usuario no encontrado');
+    }
+
     const recoveryToken = crypto.randomBytes(32).toString('hex');
     const expiryDate = new Date(Date.now() + 3600000); // Vence en 1 hora
 
@@ -591,13 +603,14 @@ router.post('/recover-password', async (req, res) => {
       },
     });
 
-// Detalles del correo electrónico
-const mailOptions = {
-  from: process.env.GMAIL_USER,
-  to: email,
-  subject: 'Recuperación de Contraseña',
-  text: `Haga clic en el siguiente enlace para restablecer su contraseña: https://camarasdesegurida.onrender.com/reset-password?token=${recoveryToken}`,
-};
+    // Detalles del correo electrónico
+    const mailOptions = {
+      from: process.env.GMAIL_USER,
+      to: email,
+      subject: 'Recuperación de Contraseña',
+      text: `Haga clic en el siguiente enlace para restablecer su contraseña: https://camarasdesegurida.onrender.com/reset-password?token=${recoveryToken}`,
+    };
+
     // Envía el correo electrónico
     await transporter.sendMail(mailOptions);
 
@@ -608,6 +621,7 @@ const mailOptions = {
     res.status(500).render('error', { error: 'Error interno del servidor', details: error.message });
   }
 });
+
 // Ruta GET para mostrar la página de restablecimiento de contraseña
 router.get('/reset-password', async (req, res) => {
   const { token } = req.query;
