@@ -575,25 +575,27 @@ router.get('/recover-password', (req, res) => {
   res.render('recuperarpassword', { error });
 });
 
-
 router.post('/recover-password', async (req, res) => {
   try {
     const { email } = req.body;
 
-    // Obtener cliente por correo electrónico
-    const user = await db.getClientByEmail(email);
+// Obtener cliente por correo electrónico
+const users = await db.getClientByEmail(email);
 
-    // Verificar si el usuario está registrado
-    if (!user) {
-      // Si el usuario no está registrado, redirige y muestra un mensaje de error
-      return res.redirect('/recover-password?error=Usuario no encontrado');
-    }
+// Verificar si el usuario está registrado
+if (!users || users.length === 0) {
+  // Si el usuario no está registrado, log y redirige mostrando un mensaje de error
+  console.log('Usuario no encontrado:', email);
+  return res.redirect('/recover-password?error=Usuario no encontrado');
+}
 
-    const recoveryToken = crypto.randomBytes(32).toString('hex');
-    const expiryDate = new Date(Date.now() + 3600000); // Vence en 1 hora
+// Si llegamos aquí, significa que el usuario está registrado y puedes continuar con el resto del código
+const user = users[0]; // 
+const recoveryToken = crypto.randomBytes(32).toString('hex');
+const expiryDate = new Date(Date.now() + 3600000); // Vence en 1 hora
 
-    // Almacena el token y la fecha de expiración en la base de datos
-    await db.updateResetToken(email, recoveryToken, expiryDate);
+// Almacena el token y la fecha de expiración en la base de datos
+await db.updateResetToken(email, recoveryToken, expiryDate);
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',

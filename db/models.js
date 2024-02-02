@@ -243,7 +243,14 @@ getDetalles(product_id) {
       });
     });
   },
-
+  getClientByEmail(email) {
+    return new Promise((resolve, reject) => {
+      db.all(querys.getClientByEmail, [email], (err, rows) => {
+        if (err) reject(err);
+        resolve(rows);
+      });
+    });
+  },
   insertClient(email, password) {
     return new Promise((resolve, reject) => {
       // Verificar si el correo ya existe

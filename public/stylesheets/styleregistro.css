@@ -101,3 +101,8 @@ a.buttonn {
     max-width: 100%;
   }
 }
+.error-message {
+  color: red;
+  text-align: center;
+  margin-top: 10px; /* Ajusta el margen según sea necesario */
+}
